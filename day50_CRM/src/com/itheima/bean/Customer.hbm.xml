@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    <hibernate-mapping>
+    <class name="com.itheima.bean.Customer" table="cst_customer">
+    <id name="cust_id">
+    <generator class="native"></generator>
+    </id>
+    <property name="cust_name"></property>
+    <property name="cust_phone"></property>
+    <property name="cust_address"></property>
+    <property name="cust_image"></property>
+   <!--  <property name="cust_user_id"></property>
+    <property name="cust_create_id"></property> -->
+    
+     <!-- 客户和用户的关系是多对一的关系 -->
+     <many-to-one name="cust_user_id" class="com.itheima.bean.User"></many-to-one>
+     <many-to-one name="cust_create_id" class="com.itheima.bean.User"></many-to-one>
+    <many-to-one name="cust_source" class="com.itheima.bean.BaseDict"></many-to-one>
+    <many-to-one name="cust_industry" class="com.itheima.bean.BaseDict"></many-to-one>
+    <many-to-one name="cust_level" class="com.itheima.bean.BaseDict"></many-to-one>
+    
+    <!-- 客户和联系人的关系是 一对多的关系 -->
+		<set name="linkMans">
+		
+			<!-- 这个key其实就是说，链接下面的那个LinkMan表的哪一个列 -->
+			<key >
+				<column name="lkm_cust_id"></column>
+			</key>
+			
+			<!-- 表示链接的是哪一个表就是说，和哪一个表建立关系 -->
+			<one-to-many class="com.itheima.bean.LinkMan"/>
+		</set>
+    </class>
+    </hibernate-mapping>
